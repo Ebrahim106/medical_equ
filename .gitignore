@@ -1,0 +1,17 @@
+# Large datasets
+processed_timeseries_level.csv
+processed_device_level.csv
+Medical_Device_Failure_dataset.csv
+New folder/
+*.csv
+
+# Python
+__pycache__/
+*.pyc
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Optional local env
+.venv/
+env/
