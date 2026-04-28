@@ -2,7 +2,7 @@ import pandas as pd
 import joblib
 import os
 
-def create_example_data(input_path="example_risk_input.csv"):
+def create_example_data(input_path="data/examples/example_risk_input.csv"):
     # Create 3 example devices (Low, Medium, and High Risk profiles)
     data = [
         {
@@ -72,7 +72,7 @@ def create_example_data(input_path="example_risk_input.csv"):
     print(f"Created sample test data at '{input_path}'\\n")
     return df
 
-def test_model(input_path="example_risk_input.csv", output_path="example_risk_predictions.csv"):
+def test_model(input_path="data/examples/example_risk_input.csv", output_path="data/examples/example_risk_predictions.csv"):
     # 1. Check if artifacts exist
     prep_path = "artifacts/rf_risk_preprocessor.joblib"
     model_path = "artifacts/rf_risk_classifier.joblib"

@@ -124,8 +124,8 @@ def generate_timeseries(df, seed=42, n_days=365):
 
 def main():
     parser = argparse.ArgumentParser(description="Generate synthetic IoT time-series logs.")
-    parser.add_argument("--input", default="Medical_Device_Failure_dataset.csv", help="Input device-level CSV")
-    parser.add_argument("--output", default="synthetic_device_timeseries.csv", help="Output timeseries CSV")
+    parser.add_argument("--input", default="data/raw/Medical_Device_Failure_dataset.csv", help="Input device-level CSV")
+    parser.add_argument("--output", default="data/examples/synthetic_device_timeseries.csv", help="Output timeseries CSV")
     parser.add_argument("--seed", type=int, default=42, help="Random seed")
     parser.add_argument("--days", type=int, default=365, help="Days per device to simulate")
     args = parser.parse_args()

@@ -11,7 +11,7 @@ from .config import Config
 logger = logging.getLogger(__name__)
 
 
-class ModelService:
+class LSTMService:
     """Encapsulates loading artifacts, preprocessing, and prediction."""
 
     def __init__(self, config: Config) -> None:

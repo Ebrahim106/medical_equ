@@ -3,7 +3,8 @@ import logging
 from flask import Flask, jsonify
 
 from .config import Config
-from .model_service import ModelService
+from .lstm_service import LSTMService
+from .rf_service import RFRiskService
 from .routes import api_bp
 
 
@@ -18,7 +19,8 @@ def create_app(config: Config | None = None) -> Flask:
     )
 
     # Load model artifacts once during startup and keep service as app state.
-    app.model_service = ModelService(app.config["APP_CONFIG"])
+    app.lstm_service = LSTMService(app.config["APP_CONFIG"])
+    app.rf_service = RFRiskService(app.config["APP_CONFIG"])
     app.register_blueprint(api_bp)
 
     @app.errorhandler(404)

@@ -28,7 +28,7 @@ from sklearn.preprocessing import OneHotEncoder
 from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay, accuracy_score
 """
 
-code_load = """DATA_PATH = "processed_device_level.csv"
+code_load = """DATA_PATH = "../data/processed/processed_device_level.csv"
 TARGET_COL = "Risk_Class_Label"
 
 df = pd.read_csv(DATA_PATH)
@@ -128,14 +128,14 @@ plt.tight_layout()
 plt.show()
 """
 
-code_save = """os.makedirs("artifacts", exist_ok=True)
+code_save = """os.makedirs("../artifacts", exist_ok=True)
 
 # Save the full pipeline or components
-joblib.dump(preprocessor, "artifacts/rf_risk_preprocessor.joblib")
-joblib.dump(rf_classifier, "artifacts/rf_risk_classifier.joblib")
+joblib.dump(preprocessor, "../artifacts/rf_risk_preprocessor.joblib")
+joblib.dump(rf_classifier, "../artifacts/rf_risk_classifier.joblib")
 
-print("Saved artifacts/rf_risk_preprocessor.joblib")
-print("Saved artifacts/rf_risk_classifier.joblib")
+print("Saved ../artifacts/rf_risk_preprocessor.joblib")
+print("Saved ../artifacts/rf_risk_classifier.joblib")
 print("Model and preprocessor are ready for deployment!")
 """
 
@@ -151,7 +151,7 @@ nb['cells'] = [
     nbf.v4.new_code_cell(code_save)
 ]
 
-with open("train_general_risk_classifier.ipynb", "w", encoding="utf-8") as f:
+with open("notebooks/train_general_risk_classifier.ipynb", "w", encoding="utf-8") as f:
     nbf.write(nb, f)
 
 print("Successfully created train_general_risk_classifier.ipynb!")
