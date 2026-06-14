@@ -1,0 +1,33 @@
+# Dockerize Flask API for Production
+
+This plan outlines the steps to containerize the machine learning API using Docker and Gunicorn for production use.
+
+## Proposed Changes
+
+### Docker Configuration
+#### [NEW] [Dockerfile](file:///c:/Users/Asus/Desktop/New%20folder%20%282%29/Dockerfile)
+Create a `Dockerfile` using `python:3.10-slim` as the base image. It will:
+- Install Python dependencies (including Gunicorn).
+- Copy the application code (`ml_api`, `artifacts`, `run.py`).
+- Expose port 5000.
+- Set the startup command to use Gunicorn: `gunicorn --workers 4 --bind 0.0.0.0:5000 "ml_api:create_app()"`
+
+#### [NEW] [.dockerignore](file:///c:/Users/Asus/Desktop/New%20folder%20%282%29/.dockerignore)
+Create a `.dockerignore` file to prevent unnecessary files from being copied into the container, keeping the image small and secure. It will ignore:
+- `__pycache__` and `.pyc` files
+- `venv/` or `.env`
+- Notebooks (`.ipynb`)
+- Raw data folders (if we only need the artifacts to run the API)
+- `.git/`
+
+#### [NEW] [docker-compose.yml](file:///c:/Users/Asus/Desktop/New%20folder%20%282%29/docker-compose.yml)
+Create a Docker Compose file to make building and running the container a single-command process (`docker-compose up --build -d`). It will map port 5000 on the host to 5000 in the container and explicitly set production environment variables.
+
+### Dependencies
+#### [MODIFY] [requirements.txt](file:///c:/Users/Asus/Desktop/New%20folder%20%282%29/requirements.txt)
+Add `gunicorn>=21.2.0` to the project's dependencies to serve as the production WSGI server.
+
+## Verification Plan
+1. Use `docker-compose build` to ensure the image builds successfully.
+2. Use `docker-compose up -d` to run the container.
+3. Send a test request to `http://localhost:5000/health` to confirm the API is responding correctly from within the container.

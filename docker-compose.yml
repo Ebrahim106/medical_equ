@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  ml_api:
+    build: .
+    container_name: ml_api_service
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_DEBUG=false
+      - WINDOW_SIZE=30
+      - N_FEATURES=3
+      - PREDICTION_THRESHOLD=0.9897
+    restart: unless-stopped
