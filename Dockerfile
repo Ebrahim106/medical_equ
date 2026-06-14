@@ -1,6 +1,9 @@
 # Use an official Python runtime as a parent image
 FROM python:3.11-slim
 
+# Create a non-root user for security
+RUN groupadd -r appuser && useradd -r -g appuser appuser
+
 # Set the working directory
 WORKDIR /app
 
@@ -12,6 +15,13 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY ml_api/ ml_api/
 COPY artifacts/ artifacts/
 COPY run.py .
+COPY gunicorn.conf.py .
+
+# Change ownership to the non-root user
+RUN chown -R appuser:appuser /app
+
+# Switch to the non-root user
+USER appuser
 
 # Set environment variables for production
 ENV FLASK_DEBUG=false
@@ -22,5 +32,5 @@ ENV PYTHONUNBUFFERED=1
 # Expose the port
 EXPOSE 5000
 
-# Run the application using Gunicorn
-CMD ["gunicorn", "--workers", "4", "--bind", "0.0.0.0:5000", "ml_api:create_app()"]
+# Run the application using Gunicorn with the config file
+CMD ["gunicorn", "-c", "gunicorn.conf.py", "ml_api:create_app()"]
